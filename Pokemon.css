@@ -1,0 +1,33 @@
+ @font-face
+        {
+            font-family: Pokemon-Solid;
+            src:url(Pokemon-Solid.ttf)
+        }
+
+        h1 
+        {
+            font-family:Pokemon-Solid;
+        }
+
+        #topheader
+        {
+            background-image: url("Pokemon-Outlines1.jpg"); 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 30em;
+        }
+
+        /*.threecolumns
+        {
+           padding-left: 25px;
+        }
+*/
+        #headertext
+        {
+            color:yellow;
+            vertical-align:middle;
+            font-size:100px;
+            text-shadow: 5px 5px blue;
+        }

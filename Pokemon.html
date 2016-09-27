@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1">
+
+    <title>Pokémon Team</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Pokemon.css" />
+    <script>
+    $(document).ready(function()
+    {
+        var currPokemon;
+        var theTeam;
+        var so_far="";
+
+        //AJAX Call for pokeinfo
+        $("#search_button").click(function (ev) {
+            ev.preventDefault();
+            var value = $("#pokemon-query").val();
+            console.log("GOT " + value);
+            var theurl = "http://pokeapi.co/api/v2/pokemon/" + value + "/";
+            console.log(theurl);
+            $.ajax({
+                url: theurl,
+                dataType: "json",
+                success: function (yo) {
+                    console.log(yo);
+                    var ID = yo['id'];
+                    var name = yo['name'];
+                    var type = "";
+                    var picture = yo['sprites']['front_default'];
+                    $.each(yo.types, function (i, item) {
+                        type += item.type.name + "<br>";
+                    })
+                    everything = "<ul>";
+                    everything += "<li>ID: " + ID;
+                    everything += "<li>Name: " + name;
+                    everything += "<li>Type: " + type;
+                    everything += "<img src=\"" + picture + "\">";
+                    everything += "</ul>";
+                    $("#general_info").html(everything);
+                    currPokemon = "<img src=\"" + picture + "\">";
+                    
+                }
+            });
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        $("#AddMe").click(function (e) {
+            e.preventDefault();
+            so_far +=  currPokemon + " ";
+            $("#the_team").html(so_far);
+        });
+
+        //////////////////////////////////////////
+
+         $("#release-all").click(function (evnt) {
+            evnt.preventDefault();
+
+            var warning = window.confirm("Are you sure you want to release your pokémon?")
+
+            if(warning)
+            {
+                $("#the_team").html("");
+                so_far = "";
+            }
+        });
+/*
+        $("#team-span").on('click', 'span', function(e)
+        {
+            $(this).remove();
+        });
+*/
+    });
+    </script>
+
+    <link rel="stylesheet" href="pokemon.css">
+
+</head>
+
+<body>
+
+    <div id="topheader" class="container-fluid">
+        <div>
+            <h1 id="headertext" class="text-center">Pokémon Team Creator</h1>
+        </div>
+    </div>
+
+    <br>
+
+    <!--First row of info (search bar, tables of effective and ineffective) -->
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--Column 1-->
+
+            <div class="col-sm-4">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="Find-Pokemon">Find Pokémon:</label>
+                        <input type="text" class="form-control" id="pokemon-query" placeholder="Catch 'Em All" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger" id="search_button">Go!</button>
+                </form>
+
+                <p style="color:red">Original Pokémon only!</p>
+
+            <!--
+                <h2>
+                    Suggestions: <br>
+                    <small><span id="txtHvar"></span></small>
+                </h2>
+                -->
+
+            </div>
+
+            <!--Column 2-->
+            <!--First column of info, including searched pokemon name, types, add button, sprite, and general info-->
+
+            <div class="col-sm-4">
+
+                <h1 id="search-result-name"></h1>
+                <!--Append pokemon img here with jquery-->
+
+                <p id="types"></p>
+                <!--Types will be added here by Jquery--><!--img id="add-button" src="Closed-Pokeball.png" alt="Closed Pokeball" data-toggle="tooltip" title="Catch & Add to Team"-->
+
+                <h3>Info:</h3>
+                <h4><small id="general-info"></small></h4>
+                <div id="general_info"></div>
+                <button type="submit" class="btn btn-primary" id="AddMe"><img id="add-button" src="Closed-Pokeball.png" alt="Closed Pokeball" data-toggle="tooltip" title="Catch & Add to Team"></button> 
+
+                <!--Second column of info, which is the table showing the user's current team-->
+            </div>
+            <div class="col-sm-4">
+                <h3 class="text-center">Bill's PC</h3><button type="button" class="btn btn-primary" id="release-all"><img id="release-button" src="Open-Pokeball.png" alt="Open Pokeball" data-toggle="tooltip" title="Release All"></button>
+                <div id="team-span">
+                    <span id="the_team"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
