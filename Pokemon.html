@@ -47,7 +47,7 @@
                     everything = "<ul>";
                     everything += "<li>ID: " + ID;
                     everything += "<li>Name: " + name;
-                    everything += "<li>Type: " + type;
+                    everything += "<li>Type: <kbd>" + type + "</kbd>";
                     everything += "<img src=\"" + picture + "\">";
                     everything += "</ul>";
                     $("#general_info").html(everything);
@@ -116,7 +116,7 @@
                     <button type="submit" class="btn btn-danger" id="search_button">Go!</button>
                 </form>
 
-                <p style="color:red">Original Pokémon only!</p>
+                <p style="color:red">Original Pokémon only! <br>Search by ID number, not name.</p>
 
             <!--
                 <h2>
@@ -146,9 +146,9 @@
                 <!--Second column of info, which is the table showing the user's current team-->
             </div>
             <div class="col-sm-4">
-                <h3 class="text-center">Bill's PC</h3><button type="button" class="btn btn-primary" id="release-all"><img id="release-button" src="Open-Pokeball.png" alt="Open Pokeball" data-toggle="tooltip" title="Release All"></button>
+                <h3 class="text-center">Bill's PC <button type="button" class="btn btn-primary" id="release-all"><img id="release-button" src="Open-Pokeball.png" alt="Open Pokeball" data-toggle="tooltip" title="Release All"></button></h3>
                 <div id="team-span">
-                    <span id="the_team"></span>
+                    <span id="the_team"><img src="missingno-sprite.jpg" alt="Missingno-Sprite"></span>
                 </div>
             </div>
         </div>
